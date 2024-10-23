@@ -1,5 +1,12 @@
 function add(str: string): number | Error {
-    return 0;
+    if (str === '')
+        return 0;
+
+    const arrayOfStrings = str.split(',');
+    return arrayOfStrings.reduce((acc, cur) => {
+        acc += +cur;
+        return acc;
+    }, 0);
 
 }
 
