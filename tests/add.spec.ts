@@ -19,3 +19,11 @@ test('add the given string separated by comma and by newline', () => {
 test('support a different delimeter given in the beginning of the string', () => {
     expect(add('//[;]\n1;2')).toBe(3);
 });
+
+test('support a different + multiple delimeter given in the beginning of the string', () => {
+    expect(add('//[;][%]\n1;2%3')).toBe(6);
+});
+
+test('support a different + multiple delimeter given in the beginning of the string', () => {
+    expect(() => add('//[;][%]\n1;2%-3')).toThrow("Negative Numbers are not allowed");
+});

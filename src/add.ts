@@ -27,6 +27,9 @@ function add(str: string): number | Error {
             }
         }
         for (let j = 0; j < stringContent.length; j++) {
+            if (stringContent[j] === '-') {
+                throw Error('Negative Numbers are not allowed');
+            }
             if (!delimeter[stringContent[j]]) {
                 sum += +stringContent[j];
             }
