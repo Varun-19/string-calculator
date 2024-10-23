@@ -24,10 +24,22 @@ test('support a different + multiple delimeter given in the beginning of the str
     expect(add('//[;][%]\n1;2%3')).toBe(6);
 });
 
-test('support a different + multiple delimeter given in the beginning of the string', () => {
+test('throw error in case the string has negative number', () => {
     expect(() => add('//[;][%]\n1;2%-3')).toThrow("Negative Numbers are not allowed");
 });
 
 test('Only add if the number is less than 1000', () => {
     expect(add('//[;][%]\n1;2%3%1002')).toBe(6);
+});
+
+test('handle delimeter with characters more than one', () => {
+    expect(add('//[***]\n1***2***3')).toBe(6);
+});
+
+test('handle multiple delimeter with characters more than one', () => {
+    expect(add('//[***][&&]\n1***2&&3')).toBe(6);
+});
+
+test('throw error in case the delimeter characters aren\'t matching', () => {
+    expect(() => add('//[;;][%]\n1;2%3')).toThrow("Invalid input");
 });
