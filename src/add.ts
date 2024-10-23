@@ -15,12 +15,14 @@ function add(str: string): number | Error {
   if (str === "") return 0;
   let sum = 0;
   let delimeter: { [key: string]: number } = { ",": 1 };
+  let arrayOfNegativeNumbers = [];
   const linesOfString = str.split("\n");
   for (let i = 0; i < linesOfString.length; i++) {
     const stringContent = linesOfString[i];
     let currentStringValue = "";
     let currentDelimeterValue = 0;
     let currentDelimeterCharacter = "";
+    let isNextNumberNegative = false;
     /** Checking if the first line contains delimeters
      *  If yes, creating a new delimeter object for that
      *  If no, continuing with sum  
@@ -38,7 +40,7 @@ function add(str: string): number | Error {
     // Looping through the characters in each line
     for (let j = 0; j < stringContent.length; j++) {
       if (stringContent[j] === "-") {
-        throw Error("Negative Numbers are not allowed");
+        isNextNumberNegative = true;
       }
       if (!delimeter[stringContent[j]]) {
         // Checking exact number of delimeter characters are matched before doing sum
@@ -55,8 +57,11 @@ function add(str: string): number | Error {
         if (currentDelimeterCharacter && stringContent[j] !== currentDelimeterCharacter) {
           throw Error('Invalid input')
         }
+        if (isNextNumberNegative) {
+          arrayOfNegativeNumbers.push(currentStringValue);
+        }
         // Adding to the sum
-        if (+currentStringValue <= 1000) {
+        if (+currentStringValue <= 1000 && !isNextNumberNegative) {
           sum += +currentStringValue;
         }
         // resetting string watchers
@@ -66,6 +71,9 @@ function add(str: string): number | Error {
         currentDelimeterValue++;
       }
     }
+  }
+  if (arrayOfNegativeNumbers.length) {
+    throw Error(`negative numbers are not allowed ${arrayOfNegativeNumbers.join(', ')}`)
   }
   return sum;
 }

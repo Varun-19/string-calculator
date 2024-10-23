@@ -25,7 +25,11 @@ test('support a different + multiple delimeter given in the beginning of the str
 });
 
 test('throw error in case the string has negative number', () => {
-    expect(() => add('//[;][%]\n1;2%-3')).toThrow("Negative Numbers are not allowed");
+    expect(() => add('//[;][%]\n1;2%-3')).toThrow("negative numbers are not allowed -3");
+});
+
+test('throw error in case the string has multiple negative number', () => {
+    expect(() => add('//[;][%]\n1;2%-3%-4')).toThrow("negative numbers are not allowed -3, -4");
 });
 
 test('Only add if the number is less than 1000', () => {
