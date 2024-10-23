@@ -19,6 +19,7 @@ function add(str: string): number | Error {
     const linesOfString = str.split('\n');
     for (let i = 0; i < linesOfString.length; i++) {
         const stringContent = linesOfString[i];
+        let currentStringValue = '';
         if (i === 0) {
             let delimeterAray = getDelimetersInsideBrackets(stringContent);
             if (delimeterAray.length > 0) {
@@ -31,7 +32,11 @@ function add(str: string): number | Error {
                 throw Error('Negative Numbers are not allowed');
             }
             if (!delimeter[stringContent[j]]) {
-                sum += +stringContent[j];
+                currentStringValue += stringContent[j];
+            }
+            if (delimeter[stringContent[j]] || j === stringContent.length - 1) {
+                if (+currentStringValue <= 1000) sum += +currentStringValue;
+                currentStringValue = '';
             }
         }
     }
